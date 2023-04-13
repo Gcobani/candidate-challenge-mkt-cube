@@ -31,4 +31,12 @@ class Postcard extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public static function inlineOnly()
+    {
+        return static::where('is_draft', false)
+            ->where('online_at', '<=', now()->format('Y-m-d H:i:s'))
+            ->where('offline_at', '>=', now()->format('Y-m-d H:i:s'))
+            ->paginate(20);
+    }
 }

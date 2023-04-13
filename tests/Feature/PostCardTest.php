@@ -47,7 +47,11 @@ class PostCardTest extends TestCase
     {
         $response = $this->call('GET', '/');
         $items = $response->getOriginalContent()->getData()['postcards'];
-        $this->assertEquals(Postcard::where('is_draft', 0)->count(), $items->total());
+        $postcards = Postcard::where('is_draft', 0)
+            ->where('online_at', '<=', now()->format('Y-m-d H:i:s'))
+            ->where('offline_at', '>=', now()->format('Y-m-d H:i:s'))
+            ->get();
+        $this->assertEquals($postcards->count(), $items->total());
     }
 
     public function test_remove_unknown_query_parameters_from_canonical_tag()
