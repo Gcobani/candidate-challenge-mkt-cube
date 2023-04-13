@@ -25,4 +25,13 @@ class PostCardTest extends TestCase
                     )->toScript()
             );
     }
+
+    public function test_show_post_page_has_canonical_tag_in_head()
+    {
+        $postCardId =  rand(1, 500);
+        $this->visit('/postcards/' . $postCardId)->seeElement('link', [
+            'rel' => 'canonical',
+            'href' => $this->baseUrl . '/postcards/' . $postCardId
+        ]);
+    }
 }
