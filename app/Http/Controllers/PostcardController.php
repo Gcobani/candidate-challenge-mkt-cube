@@ -15,7 +15,7 @@ class PostcardController extends Controller
     public function index()
     {
         return view('postcards.index', [
-            'postcards' => Postcard::paginate(20)
+            'postcards' => Postcard::where('is_draft', false)->paginate(20)
         ]);
     }
 
