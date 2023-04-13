@@ -56,5 +56,6 @@
 			    </div>
 		    </div>
 		</main>
+        {!! $product->toScript() !!}
 	</div>
 </x-guest-layout>
