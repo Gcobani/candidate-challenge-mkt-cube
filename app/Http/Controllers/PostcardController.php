@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostcardRequest;
 use App\Http\Requests\UpdatePostcardRequest;
 use App\Models\Postcard;
+use Spatie\SchemaOrg\Schema;
 
 class PostcardController extends Controller
 {
@@ -39,7 +40,14 @@ class PostcardController extends Controller
      */
     public function show(Postcard $postcard)
     {
-        return view('postcards.show', compact('postcard'));
+        $product = Schema::product()
+            ->name($postcard->title)
+            ->offers(
+                Schema::offer()->name($postcard->title)
+                ->price($postcard->price)
+                ->priceCurrency('ZAR')
+            );
+        return view('postcards.show', ['postcard' => $postcard, 'product' => $product]);
     }
 
     /**
