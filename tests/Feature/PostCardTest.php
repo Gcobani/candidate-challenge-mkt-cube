@@ -49,4 +49,17 @@ class PostCardTest extends TestCase
         $items = $response->getOriginalContent()->getData()['postcards'];
         $this->assertEquals(Postcard::where('is_draft', 0)->count(), $items->total());
     }
+
+    public function test_remove_unknown_query_parameters_from_canonical_tag()
+    {
+        $page = rand(1, (500/20));
+        $pageUrl = '/?author=john&page=' . $page;
+        $this->visit($pageUrl)->seePageIs($pageUrl)->dontSeeElement('link', [
+            'rel' => 'canonical',
+            'href' => $this->baseUrl . $pageUrl
+        ])->seeElement('link', [
+            'rel' => 'canonical',
+            'href' => $this->baseUrl . '/?page=' . $page
+        ]);
+    }
 }
