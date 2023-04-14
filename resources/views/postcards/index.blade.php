@@ -56,9 +56,9 @@
           @forelse ($postcards as $postcard)
             <li>
               <a href="{{ route('postcards.show', $postcard) }}" class="group block">
-                <div class="flex items-center py-5 px-4 sm:py-6 sm:px-0">
-                  <div class="flex min-w-0 flex-1 items-center">
-
+                  <div class="flex items-center py-5 px-4 sm:py-6 sm:px-0">
+                    <div class="flex min-w-0 flex-1 items-center">
+                    <img class="h-20 w-20 rounded-md" src="https://picsum.photos/400/200?random={{$postcard->id}}" alt="{{$postcard->title}}">
                     <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
                       <div>
                         <p class="truncate text-sm font-medium">{{ $postcard->title }}</p>
