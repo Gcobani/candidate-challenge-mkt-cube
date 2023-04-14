@@ -22,7 +22,7 @@ class RegistrationTest extends TestCase
 
         $response = $this->get('/register');
 
-        $response->assertStatus(200);
+        $response->seeStatusCode(200);
     }
 
     public function test_registration_screen_cannot_be_rendered_if_support_is_disabled(): void
@@ -35,7 +35,7 @@ class RegistrationTest extends TestCase
 
         $response = $this->get('/register');
 
-        $response->assertStatus(404);
+        $response->seeStatusCode(404);
     }
 
     public function test_new_users_can_register(): void
@@ -54,7 +54,7 @@ class RegistrationTest extends TestCase
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature(),
         ]);
 
-        $this->assertAuthenticated();
-        $response->assertRedirect(RouteServiceProvider::HOME);
+        $this->assertTrue($this->isAuthenticated());
+        $response->assertRedirectedTo(RouteServiceProvider::HOME);
     }
 }

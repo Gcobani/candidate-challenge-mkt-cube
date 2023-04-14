@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Postcard;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -13,6 +14,7 @@ class PaginationTest extends TestCase
     {
         parent::setUp();
         $this->seed();
+        $this->createOnlinePostcards();
     }
 
     public function test_pagination_can_navigate_froward_to_page_2(): void
@@ -59,5 +61,18 @@ class PaginationTest extends TestCase
             'rel' => 'previous',
             'href' => $this->baseUrl .'?page=' . (($defaultResultSetSeedCount/$defaultResultSetCount) - 1)
         ]);
+    }
+
+    protected function createOnlinePostcards()
+    {
+        $dateTime = now();
+        Postcard::factory()
+            ->count(40)
+            ->state([
+                'is_draft' => 0,
+                'online_at' => $dateTime->subHours(2)->format('Y-m-d H:i:s'),
+                'offline_at' => $dateTime->addHours(2)->format('Y-m-d H:i:s')
+            ])
+            ->create();
     }
 }
