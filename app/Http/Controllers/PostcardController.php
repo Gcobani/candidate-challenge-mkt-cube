@@ -43,6 +43,10 @@ class PostcardController extends Controller
      */
     public function show(Postcard $postcard)
     {
+        if ($postcard->trashed()) {
+            return redirect('postcards.index', 301)->withError('The postcard is no longer available');
+        }
+
         $product = Schema::product()
             ->name($postcard->title)
             ->offers(
