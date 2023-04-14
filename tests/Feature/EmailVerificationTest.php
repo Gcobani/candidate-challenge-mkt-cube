@@ -27,7 +27,7 @@ class EmailVerificationTest extends TestCase
 
         $response = $this->actingAs($user)->get('/email/verify');
 
-        $response->assertStatus(200);
+        $response->seeStatusCode(200);
     }
 
     public function test_email_can_be_verified(): void
@@ -53,7 +53,7 @@ class EmailVerificationTest extends TestCase
         Event::assertDispatched(Verified::class);
 
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
-        $response->assertRedirect(RouteServiceProvider::HOME.'?verified=1');
+        $response->assertRedirectedTo(RouteServiceProvider::HOME.'?verified=1');
     }
 
     public function test_email_can_not_verified_with_invalid_hash(): void
