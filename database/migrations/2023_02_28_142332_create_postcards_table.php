@@ -23,6 +23,7 @@ return new class extends Migration
             $table->timestamp('offline_at')->nullable();
             $table->boolean('is_draft')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

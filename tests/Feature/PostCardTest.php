@@ -66,4 +66,16 @@ class PostCardTest extends TestCase
             'href' => $this->baseUrl . '/?page=' . $page
         ]);
     }
+
+    public function test_soft_deleted_post_redirect()
+    {
+        $postcardId = rand(1, 500);
+        $postcard = Postcard::find($postcardId);
+        $this->assertNotNull($postcard);
+        $this->assertTrue($postcard->delete());
+
+        $this->visit('/postcards/' . $postcardId)->seeStatusCode(301)
+        ->see('The postcard is no longer available');
+
+    }
 }
