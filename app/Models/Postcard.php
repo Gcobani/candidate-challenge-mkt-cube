@@ -32,11 +32,16 @@ class Postcard extends Model
         return $this->belongsTo(Team::class);
     }
 
-    public static function inlineOnly()
+    public static function inlineOnly(string $searchTerm = null)
     {
-        return static::where('is_draft', false)
-            ->where('online_at', '<=', now()->format('Y-m-d H:i:s'))
-            ->where('offline_at', '>=', now()->format('Y-m-d H:i:s'))
-            ->paginate(20);
+        $query = static::where('is_draft', false)
+        ->where('online_at', '<=', now()->format('Y-m-d H:i:s'))
+        ->where('offline_at', '>=', now()->format('Y-m-d H:i:s'));
+
+        if (isset($searchTerm) && $searchTerm != '')
+        {
+            $query->where('title', 'LIKE', "%{$searchTerm}%");
+        }
+        return$query->paginate(20);
     }
 }

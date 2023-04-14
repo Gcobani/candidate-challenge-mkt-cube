@@ -32,6 +32,12 @@
           <h1 class="mt-2 text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Postcards index</h1>
         </div>
       </div>
+        <form class="flex justify-center py-6" action="{{ route('postcards.index') }}" method="GET">
+            <input type="text" class="rounded mr-3" name="search" required/>
+            <button type="submit" class="relative inline-flex mr-3 items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded leading-5 hover:text-gray-400 focus:z-10 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150">
+                Search
+            </button>
+        </form>
         <div class="flex justify-center">
             <!-- Previous Button -->
             @if(!$postcards->onFirstPage())
