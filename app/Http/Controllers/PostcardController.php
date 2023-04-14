@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostcardRequest;
 use App\Http\Requests\UpdatePostcardRequest;
 use App\Models\Postcard;
+use Illuminate\Http\Request;
 use Spatie\SchemaOrg\Schema;
 
 class PostcardController extends Controller
@@ -12,10 +13,12 @@ class PostcardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('postcards.index', [
-            'postcards' => Postcard::inlineOnly()
+            'postcards' => Postcard::inlineOnly(
+                $request->has('search') ? $request->get('search') : null
+            )
         ]);
     }
 
