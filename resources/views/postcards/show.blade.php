@@ -1,4 +1,4 @@
-<x-guest-layout> 
+<x-guest-layout>
 	<div class="min-h-full">
 	    <!-- Navbar -->
 	    <nav class="bg-gray-50">
@@ -45,8 +45,9 @@
     	<main class="pt-8 pb-16">
 	      	<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
 			    <div class="mx-auto max-w-3xl">
-			      <div class="flex items-center">
-			        <div>
+			      <div class="flex flex-row">
+                      <img class="h-100 w-100 rounded-md" src="https://picsum.photos/400/200?random={{$postcard->id}}" alt="{{$postcard->title}}">
+                      <div class="ml-4">
 			          <h1 class="text-2xl font-bold text-gray-900">{{ $postcard->title }}</h1>
 			          <p class="text-sm font-medium text-gray-500">Available on <time datetime="{{ $postcard->online_at }}">{{ $postcard->online_at }}</time> to <time datetime="{{ $postcard->offline_at }}">{{ $postcard->offline_at }}</time></p>
 			          <p>Author: {{ $postcard->user->name }}</p>
